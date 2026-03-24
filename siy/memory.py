@@ -10,13 +10,13 @@ THE THREE TIERS (think of them like human memory):
      - Lives in RAM, lost on restart (that's fine)
 
   2. EPISODIC MEMORY  → summaries of past conversations
-     - Stored as vectors in ChromaDB (on disk at /home/siy_brain/siy/memory/chroma/)
+     - Stored as vectors in ChromaDB (on disk at /home//siy/memory/chroma/)
      - Like long-term episodic memory: "last week we talked about X"
      - Persists across restarts, survives reboots
      - Searchable by MEANING, not keywords (vector similarity)
 
   3. CORE MEMORY  → curated facts and preferences
-     - Stored as JSON at /home/siy_brain/siy/memory/core_memory.json
+     - Stored as JSON at /home//siy/memory/core_memory.json
      - Like semantic memory: "Tavis is a grad student at UF"
      - Manually editable, highest trust level
      - Injected into EVERY request — Siy always knows these facts
@@ -80,7 +80,7 @@ logger = logging.getLogger("siy.memory")
 # Core memory is the highest-trust tier. These are curated facts that
 # Siy should ALWAYS know, regardless of what conversation is happening.
 #
-# The JSON file lives at /home/siy_brain/siy/memory/core_memory.json
+# The JSON file lives at /home//siy/memory/core_memory.json
 # and is human-editable. You can also update it via PUT /memory/core.
 #
 # On first run, if the file doesn't exist, we create it with these
@@ -216,7 +216,7 @@ class EpisodicMemory:
 
     WHY ChromaDB:
       - Embedded database (no separate server process to manage)
-      - Persists to disk at /home/siy_brain/siy/memory/chroma/
+      - Persists to disk at /home//siy/memory/chroma/
       - Survives restarts and reboots
       - Fast similarity search (~10ms per query)
       - Simple Python API
@@ -248,7 +248,7 @@ class EpisodicMemory:
 
         # ── Connect to ChromaDB ─────────────────────────────────────
         # PersistentClient stores data on disk (not just in RAM).
-        # The path is /home/siy_brain/siy/memory/chroma/ — created
+        # The path is /home//siy/memory/chroma/ — created
         # by config.py's directory initialization at import time.
         logger.info(f"Opening ChromaDB at: {CHROMA_DIR}")
         self.client = chromadb.PersistentClient(path=CHROMA_DIR)
