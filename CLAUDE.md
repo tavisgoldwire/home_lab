@@ -8,7 +8,7 @@ All development happens locally on the Mac, then deployed to the server via SCP.
 
 ## Server Access
 - **SSH alias:** `ssh siy` (configured in ~/.ssh/config)
-- **Tailscale IP:** `100.126.80.98` (use this, not 192.168.8.212 — not reachable directly from Mac)
+- **Tailscale IP:** `ip` (use this, not ip — not reachable directly from Mac)
 - **User:** `siy_brain`
 - **Key:** `~/.ssh/id_ed25519`
 - **sudo** requires interactive password — ask the user to run sudo commands in their own terminal
@@ -35,7 +35,7 @@ Desktop/Home Lab/Siy/
 ### Deploy workflow
 ```bash
 # After editing any file locally:
-scp "Siy/<filename>" siy_brain@100.126.80.98:~/siy/<server-path>
+scp "Siy/<filename>" siy_brain@ip:~/siy/<server-path>
 
 # Then restart (user must do this in their own terminal):
 ssh siy "sudo systemctl restart siy"
@@ -113,19 +113,19 @@ ssh siy "ollama ps"                       # check if model is loaded/generating
 ssh siy "ollama list"                     # qwen3:1.7b (active), qwen3:8b (available)
 
 # Test fast path (should return in <1 sec)
-curl -s -X POST http://100.126.80.98:8000/chat \
+curl -s -X POST http://ip:8000/chat \
   -H "Content-Type: application/json" \
   -d '{"text": "turn on the floor lamp", "session_id": "test"}'
 
 # Health check
-curl -s http://100.126.80.98:8000/health | python3 -m json.tool
+curl -s http://ip:8000/health | python3 -m json.tool
 ```
 
 ---
 
 ## Hardware Context
-- **OptiPlex #2** (Siy host): i5-6500T, 8GB DDR4, 1 empty RAM slot, 256GB NVMe
-- **RAM upgrade path:** Add 1x 8GB DDR4-2400 SODIMM → 16GB total (one empty slot confirmed)
-- **IoT VLAN:** 192.168.10.0/24, lights at .159 and .191, HS300 at .180
-- **Jellyfin public:** watch.kittyverse.win (Cloudflare Tunnel → OptiPlex #1 :30013)
-- **Monitoring:** Uptime Kuma on RPi3 (ratpatrol) at 192.168.8.186:3001
+- **OptiPlex #2** (Siy host): cpu, 8GB ram, 1 empty RAM slot, 256GB memory
+- **RAM upgrade path:** Add 1x 8GB ram-2400 SODIMM → 16GB total (one empty slot confirmed)
+- **IoT VLAN:** ip/24, lights at .159 and .191, HS300 at .180
+- **Jellyfin public:** watch.jellyfin.com (Cloudflare Tunnel → OptiPlex #1 :30013)
+- **Monitoring:** Uptime Kuma on RPi3 (ratpatrol) at ip:3001
