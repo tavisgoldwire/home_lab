@@ -1,0 +1,37 @@
+# ═══════════════════════════════════════════════════════════════════
+# Siy Brain — Python Dependencies
+# ═══════════════════════════════════════════════════════════════════
+#
+# Install with:
+#   cd ~/siy
+#   python3 -m venv .venv
+#   source .venv/bin/activate
+#   pip install -r requirements.txt
+#
+# WHY EACH PACKAGE EXISTS:
+#
+#   fastapi           → web framework (handles /chat, /health, etc.)
+#   uvicorn[standard] → ASGI server that runs FastAPI
+#                        [standard] adds uvloop + httptools for speed
+#   pydantic          → request/response validation (used by FastAPI)
+#   requests          → HTTP client for talking to Ollama's REST API
+#   chromadb          → vector database for episodic memory storage
+#   sentence-transformers → embedding model (text → vectors) for
+#                           ChromaDB similarity search
+#
+# NOTE ON sentence-transformers:
+#   This pulls in PyTorch as a dependency (~800MB download).
+#   On the i5-6500T with 8GB RAM, it runs fine on CPU.
+#   First install takes a while — don't panic if pip seems stuck.
+#
+# NOTE ON chromadb:
+#   ChromaDB v0.5+ requires SQLite 3.35+. Ubuntu 24.04 ships with
+#   SQLite 3.45, so you're fine. Older Ubuntu versions may need
+#   a SQLite upgrade.
+
+fastapi
+uvicorn[standard]
+pydantic
+requests
+chromadb
+sentence-transformers

@@ -1,0 +1,245 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+:root {
+  --bg:#0c0e12;--bg2:#13161c;--bg3:#1a1e26;--border:#252a35;
+  --text:#d4d8e0;--text2:#8a91a0;--text3:#5a6170;
+  --teal:#3ecfa5;--teal-d:rgba(62,207,165,0.12);--teal-b:rgba(62,207,165,0.25);
+  --purple:#9b7aff;--purple-d:rgba(155,122,255,0.12);--purple-b:rgba(155,122,255,0.25);
+  --amber:#f0a030;--amber-d:rgba(240,160,48,0.10);--amber-b:rgba(240,160,48,0.25);
+  --coral:#e8593c;--coral-d:rgba(232,89,60,0.10);--coral-b:rgba(232,89,60,0.25);
+  --blue:#4d9ef6;--blue-d:rgba(77,158,246,0.10);--blue-b:rgba(77,158,246,0.25);
+  --green:#5cb85c;--green-d:rgba(92,184,92,0.10);--green-b:rgba(92,184,92,0.2);
+  --pink:#d4537e;--pink-d:rgba(212,83,126,0.10);--pink-b:rgba(212,83,126,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:14px;line-height:1.7;padding:2rem 1.5rem;max-width:820px;margin:0 auto;}
+h1{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;color:var(--teal);margin-bottom:4px;letter-spacing:-0.5px;}
+h2{font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;color:var(--text2);margin:3rem 0 1rem;text-transform:uppercase;letter-spacing:1.5px;border-bottom:1px solid var(--border);padding-bottom:6px;}
+.subtitle{font-size:13px;color:var(--text2);margin-bottom:2rem;}
+
+.phase{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:12px;position:relative;overflow:hidden;}
+.phase::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;border-radius:4px 0 0 4px;}
+.phase.p1::before{background:var(--teal);}
+.phase.p2::before{background:var(--purple);}
+.phase.p3::before{background:var(--amber);}
+.phase.p4::before{background:var(--coral);}
+.phase.p5::before{background:var(--pink);}
+.phase-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.phase-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600;}
+.p1 .phase-tag{background:var(--teal-d);color:var(--teal);border:1px solid var(--teal-b);}
+.p2 .phase-tag{background:var(--purple-d);color:var(--purple);border:1px solid var(--purple-b);}
+.p3 .phase-tag{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);}
+.p4 .phase-tag{background:var(--coral-d);color:var(--coral);border:1px solid var(--coral-b);}
+.p5 .phase-tag{background:var(--pink-d);color:var(--pink);border:1px solid var(--pink-b);}
+.phase-title{font-weight:600;font-size:15px;}
+.phase-time{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text3);margin-left:auto;}
+.phase-desc{font-size:13px;color:var(--text2);margin-bottom:10px;}
+.phase-items{font-size:12px;color:var(--text2);line-height:2;}
+.phase-items strong{color:var(--text);font-weight:500;}
+.phase-unlock{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text3);margin-top:10px;padding-top:8px;border-top:1px solid var(--border);}
+
+.hw-gate{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin:12px 0;font-size:13px;color:var(--text2);}
+.hw-gate strong{color:var(--amber);}
+
+.note{background:var(--bg3);border-left:3px solid var(--text3);padding:12px 16px;font-size:13px;color:var(--text2);border-radius:0 6px 6px 0;margin:1.5rem 0;}
+.note strong{color:var(--text);}
+.note.vision{border-color:var(--purple);}
+.note.honest{border-color:var(--coral);}
+.note.career{border-color:var(--teal);}
+
+.hw-map{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text2);line-height:1.8;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;overflow-x:auto;white-space:pre;}
+</style>
+
+<h1>KittyVERSE — the long arc</h1>
+<p class="subtitle">Where this goes if you keep building. Not a task list — a trajectory.</p>
+
+<h2>Phase 1 — foundation (now → April 2026)</h2>
+<p style="font-size:13px;color:var(--text3);margin-bottom:10px;">This is the branch map you already have. Get Siy from "endpoint that responds" to "assistant that acts."</p>
+
+<div class="phase p1">
+  <div class="phase-header">
+    <span class="phase-tag">CURRENT</span>
+    <span class="phase-title">Siy gets hands</span>
+    <span class="phase-time">2-3 weekends</span>
+  </div>
+  <div class="phase-desc">The gateway exists. Now give it tools to actually do things.</div>
+  <div class="phase-items">
+    <strong>SIY-02:</strong> ha_tools.py — lights, scenes, energy queries via HA REST API<br>
+    <strong>SIY-03:</strong> Sub-agent routing — orchestrator picks the right agent per request<br>
+    <strong>SIY-04:</strong> Cron heartbeat — morning briefing, nightly log rotation<br>
+    <strong>HA-01:</strong> Bidirectional webhooks — HA triggers Siy, Siy triggers HA
+  </div>
+  <div class="phase-unlock">Unlocks: Siy feels alive. "Hey Siy, movie mode" actually dims lights and starts the TV.</div>
+</div>
+
+<h2>Phase 2 — voice + ambient intelligence (May–June 2026)</h2>
+<p style="font-size:13px;color:var(--text3);margin-bottom:10px;">Siy stops being a terminal you curl. It becomes something you talk to.</p>
+
+<div class="phase p2">
+  <div class="phase-header">
+    <span class="phase-tag">VOICE</span>
+    <span class="phase-title">Ambient Siy</span>
+    <span class="phase-time">2-3 weekends</span>
+  </div>
+  <div class="phase-desc">You already have the conference mic. Add Whisper (local STT) and Piper (local TTS) to the OptiPlex. Siy listens and speaks — entirely local, no cloud, no subscription.</div>
+  <div class="phase-items">
+    <strong>Whisper.cpp:</strong> Runs on CPU. whisper-small is ~460MB, real-time on i5-6500T for short commands.<br>
+    <strong>Piper TTS:</strong> ~50MB voice model, near-instant synthesis. Multiple voice options.<br>
+    <strong>Wake word:</strong> openWakeWord or Porcupine lite — "Hey Siy" triggers listening.<br>
+    <strong>HA integration:</strong> Wyoming protocol connects Whisper + Piper to HA's voice pipeline.<br>
+    <strong>Bluetooth speaker:</strong> $15-20 for a decent one. Siy speaks into the room.
+  </div>
+  <div class="phase-unlock">Unlocks: Walk into your room. "Hey Siy, I'm home." Lights come on, TV turns on, you get a quick briefing. No phone, no terminal, no screen.</div>
+</div>
+
+<div class="phase p2">
+  <div class="phase-header">
+    <span class="phase-tag">PROACTIVE</span>
+    <span class="phase-title">Siy initiates</span>
+    <span class="phase-time">ongoing</span>
+  </div>
+  <div class="phase-desc">Most AI assistants only respond. Siy should start conversations when something matters.</div>
+  <div class="phase-items">
+    <strong>Energy alerts:</strong> HS300 reports a power draw spike — Siy says "Your 3D printer has been running for 6 hours. Want me to check on it?"<br>
+    <strong>Weather intelligence:</strong> "It's going to rain at 4pm. Your windows are probably open."<br>
+    <strong>Uptime events:</strong> Siy monitors its own Uptime Kuma API. "TrueNAS went offline 3 minutes ago. Want me to check if it's a power issue?"<br>
+    <strong>Schedule awareness:</strong> Integrate Google Calendar. "You have a committee meeting in 30 minutes. Want a summary of your last analysis?"
+  </div>
+  <div class="phase-unlock">Unlocks: Siy is no longer reactive. It's a roommate with useful opinions.</div>
+</div>
+
+<h2>Phase 3 — thesis co-pilot (Summer 2026)</h2>
+<p style="font-size:13px;color:var(--text3);margin-bottom:10px;">This is where KittyVERSE stops being a hobby and becomes a career accelerator.</p>
+
+<div class="note career">
+  <strong>The career bridge.</strong> You're a computational ecology student studying giraffe gut microbiomes with Oxford Nanopore 16S sequencing. Your committee member specializes in AI/ML vision learning. Your thesis has a growing ML component. Every piece of the research agent maps directly to skills that comp bio and bioinformatics employers are hiring for right now: data pipelines, literature mining, reproducible analysis, and ML integration. Building this isn't a distraction from your career — it IS the career work, just wrapped in a project you actually enjoy.
+</div>
+
+<div class="phase p3">
+  <div class="phase-header">
+    <span class="phase-tag">RESEARCH</span>
+    <span class="phase-title">Literature + grant agent</span>
+    <span class="phase-time">2-3 weekends</span>
+  </div>
+  <div class="phase-desc">The most career-relevant agent you'll build. Siy searches, filters, and organizes scientific literature on your behalf.</div>
+  <div class="phase-items">
+    <strong>PubMed E-utilities API:</strong> Free, no key needed. Search by keyword, MeSH term, date range. Returns structured XML.<br>
+    <strong>arXiv API:</strong> Preprint search for ML/comp bio papers. Returns Atom XML.<br>
+    <strong>Semantic Scholar API:</strong> Citation graphs, related papers, author networks. Free tier is generous.<br>
+    <strong>SQLite storage:</strong> Papers table (DOI, title, abstract, authors, date, tags). Full-text search built in.<br>
+    <strong>ChromaDB layer:</strong> Embed abstracts as vectors. "Find papers similar to my thesis proposal" actually works.<br>
+    <strong>Grant search:</strong> NIH Reporter API, NSF Award Search. Tavis says "find grants related to microbiome ecology using ML" → Siy returns structured results.<br>
+    <strong>Scheduled digest:</strong> Cron job runs weekly. "3 new papers matching your research profile were published this week."
+  </div>
+  <div class="phase-unlock">Unlocks: You show up to committee meetings with literature that your committee hasn't seen yet. Your thesis lit review writes itself over months of accumulated searches.</div>
+</div>
+
+<div class="phase p3">
+  <div class="phase-header">
+    <span class="phase-tag">DATA</span>
+    <span class="phase-title">Thesis data pipeline agent</span>
+    <span class="phase-time">3-4 weekends</span>
+  </div>
+  <div class="phase-desc">Siy watches your analysis directory, understands your file structure, and helps you manage the pipeline.</div>
+  <div class="phase-items">
+    <strong>Local RAG on your files:</strong> Index your R scripts, Python notebooks, metadata CSVs, thesis drafts into ChromaDB. "What analysis did I run on the March samples?" → Siy searches your own work.<br>
+    <strong>File watcher:</strong> watchdog Python library monitors a synced research directory. New FASTQ file arrives → Siy logs it, suggests next step.<br>
+    <strong>Pipeline status:</strong> Siy tracks which samples have been processed, which are pending, which errored. Dashboard in HA or a simple web UI.<br>
+    <strong>Metadata validation:</strong> Before you submit to NCBI/SRA, Siy checks your metadata sheets for common errors (missing fields, date format inconsistencies, taxonomy mismatches).<br>
+    <strong>Analysis templating:</strong> "Run the standard 16S diversity analysis on dataset X" → Siy generates the R/Python script with your parameters pre-filled.
+  </div>
+  <div class="phase-unlock">Unlocks: Your thesis data management is automated and auditable. When your committee asks "where's the analysis for the June samples?" Siy knows.</div>
+</div>
+
+<h2>Phase 4 — personal knowledge system (Fall 2026)</h2>
+<p style="font-size:13px;color:var(--text3);margin-bottom:10px;">Siy transitions from "tool that does things" to "system that knows you."</p>
+
+<div class="phase p4">
+  <div class="phase-header">
+    <span class="phase-tag">MEMORY</span>
+    <span class="phase-title">Knowledge graph</span>
+    <span class="phase-time">ongoing project</span>
+  </div>
+  <div class="phase-desc">Go beyond flat vector search. Build a structured graph of everything Siy knows — entities, relationships, temporal context.</div>
+  <div class="phase-items">
+    <strong>Entities:</strong> People (committee members, collaborators), papers, datasets, methods, organisms, genes, projects.<br>
+    <strong>Relationships:</strong> "Dr. X recommended paper Y which uses method Z on organism W." Siy builds this map over time from your conversations and research interactions.<br>
+    <strong>SQLite + ChromaDB hybrid:</strong> Structured data in SQL, semantic search over descriptions in ChromaDB. Best of both.<br>
+    <strong>Temporal layer:</strong> "What were my research priorities in September vs now?" — knowledge evolves, Siy tracks the evolution.<br>
+    <strong>Automatic extraction:</strong> When you tell Siy "I met with Dr. Rodriguez about the Disney permit renewal," it extracts (Person: Dr. Rodriguez, Topic: Disney permit, Action: renewal, Date: today) without you having to structure it.
+  </div>
+  <div class="phase-unlock">Unlocks: Siy becomes your institutional memory. Three years from now it knows every paper you've read, every decision you've made, every collaborator you've worked with. That's an asset no employer can take from you.</div>
+</div>
+
+<div class="phase p4">
+  <div class="phase-header">
+    <span class="phase-tag">CAREER</span>
+    <span class="phase-title">Job market intelligence</span>
+    <span class="phase-time">starts Fall 2026</span>
+  </div>
+  <div class="phase-desc">You graduate in ~1.5 years targeting comp bio, bioinformatics, location-flexible roles. Siy should be tracking this landscape for you.</div>
+  <div class="phase-items">
+    <strong>Job board scraping:</strong> BioJobs, Nature Careers, Indeed bioinformatics listings. Cron job runs daily.<br>
+    <strong>Skill gap analysis:</strong> Cross-reference job requirements against your actual skills (which Siy knows from your projects). "85% of comp bio postings want Docker experience — you have it. 60% want cloud deployment — you don't yet."<br>
+    <strong>Salary benchmarking:</strong> Track ranges by role, location, and company size. "Remote bioinformatics roles are averaging $X in your experience band."<br>
+    <strong>Application tracker:</strong> SQLite table. Status, dates, contacts, notes. Siy reminds you to follow up.
+  </div>
+  <div class="phase-unlock">Unlocks: You walk into job season with data, not anxiety. You know exactly what skills to emphasize and where the gaps are.</div>
+</div>
+
+<h2>Phase 5 — the full vision (2027+)</h2>
+<p style="font-size:13px;color:var(--text3);margin-bottom:10px;">Where this goes if you keep the trajectory. Hardware upgrades assumed.</p>
+
+<div class="hw-gate">
+  <strong>Hardware gate:</strong> Phases 1-4 run on your current 8GB OptiPlex with qwen3:8b. Phase 5 benefits from a RAM upgrade to 16-32GB (enables qwen3:14b or mistral-nemo for better reasoning), and optionally a used GPU ($100-150 for a GTX 1060 6GB or RTX 2060 on eBay) for fast inference and Whisper acceleration. Total cost: ~$80-200 when you're ready.
+</div>
+
+<div class="phase p5">
+  <div class="phase-header">
+    <span class="phase-tag">VISION</span>
+    <span class="phase-title">The apartment OS</span>
+    <span class="phase-time">ongoing</span>
+  </div>
+  <div class="phase-desc">KittyVERSE isn't a collection of services anymore. It's a unified operating system for your physical and intellectual life.</div>
+  <div class="phase-items">
+    <strong>Multi-room voice:</strong> Cheap ESP32 + I2S mic satellites in each room. One Siy, multiple ears. "Hey Siy" works from the kitchen, bedroom, desk.<br>
+    <strong>Robot vacuum integration:</strong> Roborock on IoT VLAN, Siy schedules cleaning around your calendar and presence detection. "Everyone left → start the kitchen run."<br>
+    <strong>Energy optimization:</strong> HS300 per-outlet data + utility rate schedules + weather forecast → Siy predicts your power bill and suggests optimizations. "Your PC drew 340W for 6 hours today. Switching to the OptiPlex for HandBrake encoding would save $4/month."<br>
+    <strong>Multi-model routing:</strong> Small model (qwen3:8b) for fast commands: "lights off." Larger model (14b or cloud fallback) for reasoning: "analyze this paper." Siy picks the model based on the task complexity.<br>
+    <strong>Guest mode:</strong> Roommate or partner can interact with Siy via HA dashboard with limited scope. "Hey Siy, what movies were added this week?" works. "Hey Siy, show me Tavis's research" doesn't.<br>
+    <strong>Portable identity:</strong> When you graduate and move, Siy's entire state (ChromaDB, SQLite, JSONL logs, core memory, knowledge graph) fits on a USB drive. Plug it into new hardware anywhere. Your assistant moves with you.
+  </div>
+</div>
+
+<div class="phase p5">
+  <div class="phase-header">
+    <span class="phase-tag">META</span>
+    <span class="phase-title">Siy improves itself</span>
+    <span class="phase-time">long-term</span>
+  </div>
+  <div class="phase-desc">The agents start talking to each other. The system learns from its own patterns.</div>
+  <div class="phase-items">
+    <strong>Agent-to-agent messaging:</strong> Research agent finds a paper using a method you haven't tried → flags code agent → code agent scaffolds the implementation → home agent schedules focused work time on your calendar with "deep work" lighting preset.<br>
+    <strong>Self-monitoring:</strong> Siy tracks its own response quality. Which queries get follow-ups (meaning the first answer wasn't good enough)? Which tools fail most often? Weekly self-report.<br>
+    <strong>Prompt evolution:</strong> System prompts get versioned in git. Siy can propose changes to its own system prompt based on interaction patterns. You approve or reject via a simple UI.<br>
+    <strong>Memory consolidation:</strong> Nightly cron. Siy reviews the day's JSONL logs, extracts key facts, proposes knowledge graph updates, archives stale episodic memories. Like sleep — the brain consolidates while you rest.
+  </div>
+</div>
+
+<hr style="border:none;border-top:1px solid var(--border);margin:2.5rem 0;">
+
+<h2>The honest constraints</h2>
+
+<div class="note honest">
+  <strong>What could stop this.</strong> Four things. First, time — you're a grad student, not a full-time developer. Every phase needs to fit in weekend sessions and weeknight hours. This roadmap is 12-18 months at that pace, not 3 months. Second, model quality — qwen3:8b is usable for commands and short tasks, but real research agent work (paper summarization, grant analysis) strains an 8B model. The RAM upgrade to run 14B is the single highest-ROI hardware investment on this roadmap. Third, scope creep — the temptation to build all agents at once instead of getting one solid before starting the next. Resist it. Fourth, the partner factor — long lab sessions have a social cost you've already felt. Keep Siy-building to defined time blocks.
+</div>
+
+<div class="note vision">
+  <strong>What makes this different from OpenClaw.</strong> OpenClaw is a general-purpose agent framework for tech enthusiasts who want to connect 20 messaging platforms and run cloud LLMs. Siy is a personal intelligence system built for one person's specific life — your thesis, your apartment, your career, your data. OpenClaw has 163K GitHub stars and a skill marketplace. Siy has one user who understands every line of code. That's not a limitation — it's the entire point. When you walk into a bioinformatics interview and someone asks "tell me about a system you built," you won't be describing someone else's framework. You'll be describing something you architected, deployed, and lived with. That's a fundamentally different story.
+</div>
+
+<div class="note career">
+  <strong>The resume line, written forward.</strong> "Built and deployed a multi-agent AI system on local hardware: FastAPI gateway, Ollama-hosted LLMs, ChromaDB vector memory, Home Assistant integration, automated literature mining against PubMed/arXiv APIs, and a structured knowledge graph — all self-hosted on a segmented VLAN network with Cloudflare Tunnel for public services and Tailscale for private admin access." That's not a homelab project. That's a systems engineering portfolio.
+</div>
+

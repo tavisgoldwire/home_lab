@@ -1,0 +1,331 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+:root {
+  --bg:#0c0e12;--bg2:#13161c;--bg3:#1a1e26;--border:#252a35;
+  --text:#d4d8e0;--text2:#8a91a0;--text3:#5a6170;
+  --teal:#3ecfa5;--teal-d:rgba(62,207,165,0.12);--teal-b:rgba(62,207,165,0.25);
+  --purple:#9b7aff;--purple-d:rgba(155,122,255,0.12);--purple-b:rgba(155,122,255,0.25);
+  --amber:#f0a030;--amber-d:rgba(240,160,48,0.10);--amber-b:rgba(240,160,48,0.25);
+  --coral:#e8593c;--coral-d:rgba(232,89,60,0.10);--coral-b:rgba(232,89,60,0.25);
+  --blue:#4d9ef6;--blue-d:rgba(77,158,246,0.10);--blue-b:rgba(77,158,246,0.25);
+  --green:#5cb85c;--green-d:rgba(92,184,92,0.10);--green-b:rgba(92,184,92,0.2);
+  --pink:#d4537e;--pink-d:rgba(212,83,126,0.10);--pink-b:rgba(212,83,126,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Sans',sans-serif;font-size:14px;line-height:1.6;padding:2rem 1.5rem;max-width:820px;margin:0 auto;}
+h1{font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;color:var(--teal);margin-bottom:4px;letter-spacing:-0.5px;}
+h2{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500;color:var(--text3);margin:2.5rem 0 0.75rem;text-transform:uppercase;letter-spacing:1.5px;}
+.subtitle{font-size:13px;color:var(--text2);margin-bottom:4px;}
+.timestamp{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text3);margin-bottom:2rem;display:block;}
+
+/* Overall hero */
+.hero{background:linear-gradient(135deg,rgba(62,207,165,0.06),rgba(155,122,255,0.06));border:1px solid var(--border);border-radius:14px;padding:1.5rem 2rem;margin-bottom:2rem;text-align:center;}
+.hero-score{font-family:'IBM Plex Mono',monospace;font-size:56px;font-weight:600;color:var(--teal);line-height:1;}
+.hero-label{font-size:13px;color:var(--text2);margin-top:4px;}
+.hero-delta{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--green);margin-top:4px;}
+.hero-sub{font-size:12px;color:var(--text3);margin-top:8px;max-width:500px;margin-left:auto;margin-right:auto;}
+
+/* Score cards */
+.scores{display:flex;flex-direction:column;gap:10px;margin-bottom:1rem;}
+.sc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;}
+.sc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;flex-wrap:wrap;gap:6px;}
+.sc-name{font-weight:500;font-size:14px;}
+.sc-scores{font-family:'IBM Plex Mono',monospace;font-size:12px;display:flex;align-items:center;gap:6px;flex-shrink:0;}
+.sc-old{color:var(--text3);text-decoration:line-through;}
+.sc-arrow{color:var(--text3);font-size:10px;}
+.sc-new{font-weight:600;}
+.sc-detail{font-size:12px;color:var(--text2);margin-bottom:8px;}
+.sc-bar{height:5px;background:var(--bg3);border-radius:99px;overflow:hidden;}
+.sc-fill{height:100%;border-radius:99px;}
+.delta{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 6px;border-radius:4px;font-weight:500;margin-left:4px;}
+.delta.up{background:var(--green-d);color:var(--green);border:1px solid var(--green-b);}
+.delta.new-badge{background:var(--blue-d);color:var(--blue);border:1px solid var(--blue-b);}
+.delta.stable{background:var(--bg3);color:var(--text3);border:1px solid var(--border);}
+.sc.teal .sc-new{color:var(--teal);} .sc.teal .sc-fill{background:var(--teal);}
+.sc.purple .sc-new{color:var(--purple);} .sc.purple .sc-fill{background:var(--purple);}
+.sc.amber .sc-new{color:var(--amber);} .sc.amber .sc-fill{background:var(--amber);}
+.sc.coral .sc-new{color:var(--coral);} .sc.coral .sc-fill{background:var(--coral);}
+.sc.blue .sc-new{color:var(--blue);} .sc.blue .sc-fill{background:var(--blue);}
+.sc.green .sc-new{color:var(--green);} .sc.green .sc-fill{background:var(--green);}
+.sc.pink .sc-new{color:var(--pink);} .sc.pink .sc-fill{background:var(--pink);}
+
+/* Completed */
+.done-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0.5rem 0 1rem;}
+@media(max-width:600px){.done-grid{grid-template-columns:1fr;}}
+.done-item{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text2);background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;}
+.done-check{color:var(--green);font-weight:600;flex-shrink:0;margin-top:1px;}
+
+/* Film stats */
+.film-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0.5rem 0;}
+@media(max-width:600px){.film-row{grid-template-columns:repeat(2,1fr);}}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;}
+.stat-num{font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;display:block;}
+.stat-label{font-size:10px;color:var(--text3);margin-top:2px;text-transform:uppercase;letter-spacing:0.5px;}
+
+/* Hardware map */
+.hw{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text2);line-height:1.8;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;overflow-x:auto;white-space:pre;}
+
+/* Branch cards */
+.branch{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin-bottom:8px;}
+.branch-header{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+.branch-id{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:4px;font-weight:500;}
+.id-siy{background:var(--purple-d);color:var(--purple);border:1px solid var(--purple-b);}
+.id-net{background:var(--teal-d);color:var(--teal);border:1px solid var(--teal-b);}
+.id-media{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);}
+.id-ha{background:var(--coral-d);color:var(--coral);border:1px solid var(--coral-b);}
+.id-mon{background:var(--green-d);color:var(--green);border:1px solid var(--green-b);}
+.branch-title{font-weight:500;font-size:13px;}
+.branch-desc{font-size:12px;color:var(--text2);}
+.branch-pri{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:4px;font-weight:500;margin-left:auto;}
+.pri-1{background:var(--coral-d);color:var(--coral);border:1px solid var(--coral-b);}
+.pri-2{background:var(--amber-d);color:var(--amber);border:1px solid var(--amber-b);}
+.pri-3{background:var(--blue-d);color:var(--blue);border:1px solid var(--blue-b);}
+
+.note{background:var(--bg3);border-left:3px solid var(--text3);padding:10px 14px;font-size:12px;color:var(--text2);border-radius:0 6px 6px 0;margin:1rem 0;}
+.note strong{color:var(--text);}
+.note.good{border-color:var(--green);}
+.note.warn{border-color:var(--amber);}
+.note.info{border-color:var(--blue);}
+
+.sep{border:none;border-top:1px solid var(--border);margin:2rem 0;}
+</style>
+
+<h1>KittyVERSE — state of the union</h1>
+<p class="subtitle">Full reassessment after spring break weekend</p>
+<span class="timestamp">March 23, 2026 — work week begins</span>
+
+<div class="hero">
+  <div class="hero-score">84</div>
+  <div class="hero-label">Overall KittyVERSE score</div>
+  <div class="hero-delta">+28 from pre-spring-break (was 56)</div>
+  <div class="hero-sub">Infrastructure is mature. Every server is commissioned, the network is segmented, remote access works from anywhere, and Siy has its first heartbeat. Remaining work is software, not hardware.</div>
+</div>
+
+<h2>Subsystem scores (7 categories)</h2>
+<div class="scores">
+
+  <div class="sc blue">
+    <div class="sc-top">
+      <span class="sc-name">Network (GL.iNet + TL-SG108E + Tailscale)</span>
+      <div class="sc-scores"><span class="sc-old">70</span><span class="sc-arrow">→</span><span class="sc-new">92</span><span class="delta up">+22</span></div>
+    </div>
+    <div class="sc-detail">IoT VLAN live: 192.168.10.0/24 on br-iot bridge, KittyNET-IoT SSID on wifi0, firewall one-way rule via UCI. TL-SG108E at .122 with 802.1Q, P1 trunk, P2–P5 wired devices. Tailscale subnet router on Siy advertising 192.168.8.0/24 — full remote LAN from anywhere. Cloudflare Tunnel for public Jellyfin. AdBlock running. This is a properly segmented, remotely manageable network now.</div>
+    <div class="sc-bar"><div class="sc-fill" style="width:92%"></div></div>
+  </div>
+
+  <div class="sc purple">
+    <div class="sc-top">
+      <span class="sc-name">OptiPlex #2 — Siy host</span>
+      <div class="sc-scores"><span class="sc-old">85</span><span class="sc-arrow">→</span><span class="sc-new">94</span><span class="delta up">+9</span></div>
+    </div>
+    <div class="sc-detail">Running: Ubuntu 24.04, Ollama + qwen3:8b, HA Docker (:8123), Siy FastAPI gateway (:8000) as systemd service, Tailscale subnet router, avahi-daemon for mDNS relay. This one machine is now the brain, the HA host, the VPN router, and the mDNS bridge. Static IP .212, user siy_brain, auto-restart on failure.</div>
+    <div class="sc-bar"><div class="sc-fill" style="width:94%"></div></div>
+  </div>
+
+  <div class="sc amber">
+    <div class="sc-top">
+      <span class="sc-name">Media pipeline (Rip → Encode → Jellyfin)</span>
+      <div class="sc-scores"><span class="sc-old">91</span><span class="sc-arrow">→</span><span class="sc-new">93</span><span class="delta up">+2</span></div>
+    </div>
+    <div class="sc-detail">65+ films live and growing. Complete franchise runs (Godfather, JP hexalogy+Rebirth, Hangover, OT Star Wars, Indiana Jones, M. Night). Cloudflare Tunnel at watch.kittyverse.win stable. Pilot users active. Pipeline is routine now — rip, encode, name, upload, done.</div>
+    <div class="sc-bar"><div class="sc-fill" style="width:93%"></div></div>
+  </div>
+
+  <div class="sc teal">
+    <div class="sc-top">
+      <span class="sc-name">Infrastructure (TrueNAS + OptiPlex #1)</span>
+      <div class="sc-scores"><span class="sc-old">84</span><span class="sc-arrow">→</span><span class="sc-new">85</span><span class="delta stable">—</span></div>
+    </div>
+    <div class="sc-detail">BIOS AC recovery set. cloudflared running as TrueNAS app. Jellyfin at :30013. Pool EXTREME on 1TB USB SSD — functional but approaching the long-term capacity question. No changes needed here right now.</div>
+    <div class="sc-bar"><div class="sc-fill" style="width:85%"></div></div>
+  </div>
+
+  <div class="sc coral">
+    <div class="sc-top">
+      <span class="sc-name">Home Assistant (KittyNET)</span>
+      <div class="sc-scores"><span class="sc-old">79</span><span class="sc-arrow">→</span><span class="sc-new">84</span><span class="delta up">+5</span></div>
+    </div>
+    <div class="sc-detail">Docker on OptiPlex #2 — no more RPi3 thermal throttling or failed updates. All IoT devices reconnected on VLAN IPs via Reconfigure (preserving TPAP auth). Sunset automation, Tapo integration, HS300 at 192.168.10.180. Fire TV using watch.kittyverse.win (correct isolation). avahi-daemon bridging mDNS across subnets.</div>
+    <div class="sc-bar"><div class="sc-fill" style="width:84%"></div></div>
+  </div>
+
+  <div class="sc purple">
+    <div class="sc-top">
+      <span class="sc-name">Siy (AI assistant software)</span>
+      <div class="sc-scores"><span class="sc-old">62</span><span class="sc-arrow">→</span><span class="sc-new">70</span><span class="delta up">+8</span></div>
+    </div>
+    <div class="sc-detail">SIY-01 complete: FastAPI gateway on :8000 with /chat and /health endpoints, systemd service with auto-restart, JSONL session logging, ChromaDB memory, qwen3:8b with /no_think for CPU inference. Uptime Kuma sees it green. But: no sub-agents, no HA tools (ha_tools.py), no cron tasks, no research/code agents. Gateway exists — now it needs things to route to.</div>
+    <div class="sc-bar"><div class="sc-fill" style="width:70%"></div></div>
+  </div>
+
+  <div class="sc green">
+    <div class="sc-top">
+      <span class="sc-name">Monitoring (Uptime Kuma on RPi3)</span>
+      <div class="sc-scores"><span class="sc-old">40</span><span class="sc-arrow">→</span><span class="sc-new">68</span><span class="delta up">+28</span></div>
+    </div>
+    <div class="sc-detail">RPi3 "ratpatrol" at .186 running Docker + Uptime Kuma on :3001. Monitors live: Jellyfin, HA, TrueNAS, Cloudflare Tunnel (watch.kittyverse.win), GL.iNet router, Siy (:8000). Switch monitor removed (TL-SG108E doesn't respond to ICMP). UPS issue resolved — NAS + router on CyberPower ES 550, TV moved off.</div>
+    <div class="sc-bar"><div class="sc-fill" style="width:68%"></div></div>
+  </div>
+
+</div>
+
+<h2>What was completed this weekend</h2>
+<div class="done-grid">
+  <div class="done-item"><span class="done-check">✓</span>SIY-01: FastAPI gateway built, systemd service, JSONL logging, /health + /chat endpoints</div>
+  <div class="done-item"><span class="done-check">✓</span>MON-01: RPi3 reflashed, Docker + Uptime Kuma deployed, 6 monitors configured</div>
+  <div class="done-item"><span class="done-check">✓</span>NET-01: Full IoT VLAN — switch 802.1Q, LuCI interface, br-iot bridge, KittyNET-IoT SSID</div>
+  <div class="done-item"><span class="done-check">✓</span>NET-02: All IoT devices migrated (lamps, HS300, Fire TV) + static reservations via UCI</div>
+  <div class="done-item"><span class="done-check">✓</span>Tailscale subnet router on Siy — full remote LAN access from MacBook confirmed</div>
+  <div class="done-item"><span class="done-check">✓</span>HA reconnected to all devices on new VLAN IPs via Reconfigure (not re-add)</div>
+  <div class="done-item"><span class="done-check">✓</span>avahi-daemon on Siy for mDNS relay across VLANs</div>
+  <div class="done-item"><span class="done-check">✓</span>UPS load balanced — TV off CyberPower, NAS + router stay on backup power</div>
+  <div class="done-item"><span class="done-check">✓</span>Switch password changed from default, management UI at 192.168.8.122</div>
+  <div class="done-item"><span class="done-check">✓</span>~16 new films ripped and encoded from Walmart haul (JP 7-set, Hangover, M. Night, etc.)</div>
+  <div class="done-item"><span class="done-check">✓</span>Tailscale key expiry disabled on Siy node</div>
+  <div class="done-item"><span class="done-check">✓</span>Session diary generated (kittyverse-diary-2026-03-22.docx)</div>
+</div>
+
+<div class="note good">
+  <strong>12 tasks in one weekend.</strong> That's the most productive single weekend in the project's history. Three of those (NET-01, SIY-01, Tailscale SR) were each multi-hour, multi-step configurations. The IoT VLAN alone involved switch config, LuCI networking, bridge creation, WiFi SSID, firewall rules, device migration, HA reconfiguration, and mDNS relay. You did all of it.
+</div>
+
+<h2>Media library</h2>
+<div class="film-row">
+  <div class="stat"><span class="stat-num" style="color:var(--teal)">65+</span><span class="stat-label">Films</span></div>
+  <div class="stat"><span class="stat-num" style="color:var(--amber)">8</span><span class="stat-label">Franchises</span></div>
+  <div class="stat"><span class="stat-num" style="color:var(--purple)">87</span><span class="stat-label">Years (1939–2025)</span></div>
+  <div class="stat"><span class="stat-num" style="color:var(--coral)">$8.36</span><span class="stat-label">Domain (2yr)</span></div>
+</div>
+<div style="font-size:12px;color:var(--text2);margin:0.75rem 0 0.25rem;">Complete franchise runs:</div>
+<div style="font-size:12px;color:var(--text3);line-height:1.9;">
+  Jurassic Park/World (7 films incl. Rebirth 2025) · Godfather trilogy · Hangover trilogy · Original Star Wars trilogy · Indiana Jones trilogy · M. Night Shyamalan triple · Star Wars sequel partial (1/3) · Mummy trilogy
+</div>
+
+<div class="note warn" style="margin-top:0.75rem;">
+  <strong>Still pending:</strong> "Forest Gump" → "Forrest Gump (1994)". Force Awakens needs "Star Wars Episode VII -" prefix. Monitor 1TB pool — 65 films at ~2-4GB each ≈ 130-260GB used. Blu-ray rips (5-15GB each) will accelerate the storage timeline.
+</div>
+
+<hr class="sep">
+
+<h2>Current hardware map</h2>
+<div class="hw">
+┌───────────────────────────────────────────────────────────────┐
+│  Apartment WiFi (upstream, double-NAT, no admin access)        │
+└──────────────────────────┬────────────────────────────────────┘
+                           │
+                ┌──────────▼──────────┐
+                │  GL.iNet Slate 7    │
+                │  192.168.8.1        │
+                │  OpenWrt + AdBlock  │── WiFi: KittyNET (main)
+                │  br-iot bridge      │── WiFi: KittyNET-IoT (VLAN 10)
+                │  Firewall: lan→iot  │
+                └──────────┬──────────┘
+                     Port 1│ (802.1Q trunk: VLAN 1 + VLAN 10)
+                ┌──────────▼──────────┐
+                │  TL-SG108E switch   │
+                │  192.168.8.122      │
+                │  8× gigabit managed │
+                └─┬────┬────┬────┬───┘
+           Port 2 │  3 │  4 │  5 │ 6-8 spare
+       ┌──────────▼┐ ┌─▼──────┐ ┌─▼──────┐ ┌──────────┐
+       │OptiPlex #1│ │Opt #2  │ │RPi 3   │ │Desktop PC│
+       │TrueNAS    │ │Ubuntu  │ │ratpatrol│ │Gaming/Dev│
+       │.8.211     │ │.8.212  │ │.8.186  │ │          │
+       │Jellyfin   │ │Siy:8000│ │Uptime  │ │HandBrake │
+       │ :30013    │ │HA :8123│ │Kuma    │ │          │
+       │cloudflared│ │Tailscal│ │ :3001  │ │          │
+       │           │ │avahi   │ │        │ │          │
+       └───────────┘ └────────┘ └────────┘ └──────────┘
+
+IoT VLAN (192.168.10.0/24 — WiFi only, isolated):
+  Bedside lamp 10.159 · Floor lamp 10.191 · HS300 10.180 · Fire TV
+
+Remote access (two parallel paths):
+  PUBLIC:  watch.kittyverse.win → Cloudflare Tunnel → .211:30013
+  ADMIN:   Tailscale → Siy SR → entire 192.168.8.0/24 LAN
+</div>
+
+<hr class="sep">
+
+<h2>Next branches (work week pace)</h2>
+<p style="font-size:12px;color:var(--text3);margin-bottom:0.75rem;">Shorter sessions. Prioritized by what unlocks the most downstream value.</p>
+
+<div class="branch">
+  <div class="branch-header">
+    <span class="branch-id id-siy">SIY-02</span>
+    <span class="branch-title">Home agent (ha_tools.py)</span>
+    <span class="branch-pri pri-1">P1</span>
+  </div>
+  <div class="branch-desc">Give Siy actual HA device control — lights, scenes, switches, energy monitoring via the HA REST API. Create HA long-lived token, inject into systemd service env. This is the first real sub-agent and the proof-of-concept for the orchestrator pattern. ~1 evening session.</div>
+</div>
+
+<div class="branch">
+  <div class="branch-header">
+    <span class="branch-id id-siy">SIY-03</span>
+    <span class="branch-title">Sub-agent architecture refactor</span>
+    <span class="branch-pri pri-1">P1</span>
+  </div>
+  <div class="branch-desc">Refactor tools/ so each agent = system prompt + tool functions + memory scope. Orchestrator inspects intent and routes. home_agent first, then scaffolding for research_agent and code_agent. This is the OpenClaw pattern you identified — but lean.</div>
+</div>
+
+<div class="branch">
+  <div class="branch-header">
+    <span class="branch-id id-siy">SIY-04</span>
+    <span class="branch-title">Cron tasks + daily briefing</span>
+    <span class="branch-pri pri-2">P2</span>
+  </div>
+  <div class="branch-desc">systemd timers or APScheduler. Morning briefing (weather + energy summary). Nightly JSONL rotation. Daily code question (feeds into code_agent later). The "heartbeat" concept from the OpenClaw diagram.</div>
+</div>
+
+<div class="branch">
+  <div class="branch-header">
+    <span class="branch-id id-ha">HA-01</span>
+    <span class="branch-title">HA → Siy webhook automation</span>
+    <span class="branch-pri pri-2">P2</span>
+  </div>
+  <div class="branch-desc">HA automation calls Siy's /chat endpoint on triggers (arrival home, energy spike, NAS offline alert from Uptime Kuma). Bidirectional: HA triggers Siy, Siy triggers HA. Requires SIY-02.</div>
+</div>
+
+<div class="branch">
+  <div class="branch-header">
+    <span class="branch-id id-mon">MON-02</span>
+    <span class="branch-title">Uptime Kuma alerts + refinement</span>
+    <span class="branch-pri pri-2">P2</span>
+  </div>
+  <div class="branch-desc">Set up notifications (email or Discord webhook). Add heartbeat monitors for cron jobs once SIY-04 is live. Fix GL.iNet monitor SSL issue. Consider adding IoT VLAN gateway ping (192.168.10.1).</div>
+</div>
+
+<div class="branch">
+  <div class="branch-header">
+    <span class="branch-id id-siy">SIY-05</span>
+    <span class="branch-title">Research agent</span>
+    <span class="branch-pri pri-3">P3</span>
+  </div>
+  <div class="branch-desc">Grant finding, PubMed/arXiv search, systematic review support. Web scraping + API integration + SQLite storage. Most career-relevant agent — directly supports thesis ML work and comp bio trajectory. Weekend project.</div>
+</div>
+
+<div class="branch">
+  <div class="branch-header">
+    <span class="branch-id id-media">MED-01</span>
+    <span class="branch-title">Jellyfin polish + user expansion</span>
+    <span class="branch-pri pri-3">P3</span>
+  </div>
+  <div class="branch-desc">Fix naming errors. Create accounts for parents + partner's family. Test Tailscale remote access from work/school network. Consider adding Homepage dashboard on OptiPlex #2.</div>
+</div>
+
+<div class="branch">
+  <div class="branch-header">
+    <span class="branch-id id-net">NET-03</span>
+    <span class="branch-title">Remote desktop to PC</span>
+    <span class="branch-pri pri-3">P3</span>
+  </div>
+  <div class="branch-desc">Enable Windows RDP on desktop PC, test via Tailscale from MacBook. Enables remote HandBrake encoding sessions without being physically present. Low effort, high convenience.</div>
+</div>
+
+</div>
+
+<div class="note info" style="margin-top:1.5rem;">
+  <strong>The phase shift.</strong> Before this weekend, KittyVERSE was "a bunch of hardware that needs to be set up." Now it's "a working platform that needs software." The switch is configured. The VLANs are live. Remote access works two ways. Siy has an HTTP endpoint. Every piece of infrastructure is commissioned and monitored. The only 0→1 work left is software: giving Siy tools, agents, and scheduled intelligence. That's the fun part.
+</div>
+
