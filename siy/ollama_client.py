@@ -37,7 +37,7 @@ HOW TOOL CALLING WORKS:
 
 NETWORK NOTE:
   Ollama runs on this same machine (OptiPlex #2, 192.168.8.212) as a
-  systemd service. The URL is http://127.0.0.1:11434 (localhost).
+  systemd service. The URL is http://local_host:11434 (localhost).
   If you ever move Ollama to your gaming PC for GPU acceleration,
   change OLLAMA_BASE in config.py — this file doesn't need to change.
 """
