@@ -97,10 +97,10 @@ DEFAULT_CORE = {
     },
     "context": {
         "role": "Computational ecology grad student at UF",
-        "research": "Giraffe gut microbiomes, Oxford Nanopore 16S, Disney AKL",
+        "research": "Giraffe gut microbiomes, Oxford Nanopore 16S",
         "homelab": (
-            "KittyVERSE ecosystem — Jellyfin on TrueNAS (192.168.8.211), "
-            "Home Assistant + Siy on OptiPlex #2 (192.168.8.212), "
+            "KittyVERSE ecosystem — Jellyfin on TrueNAS (ip1), "
+            "Home Assistant + Siy on OptiPlex #2 (ip2), "
             "Uptime Kuma on RPi 3, GL.iNet router, managed switch"
         ),
         "projects": "Goldwire Games, Trophic board game, bioinformatics pipelines",
