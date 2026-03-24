@@ -9,8 +9,8 @@ All development happens locally on the Mac, then deployed to the server via SCP.
 ## Server Access
 - **SSH alias:** `ssh siy` (configured in ~/.ssh/config)
 - **Tailscale IP:** `ip` (use this, not ip — not reachable directly from Mac)
-- **User:** `siy_brain`
-- **Key:** `~/.ssh/id_ed25519`
+- **User:** ``
+- **Key:** `~/.ssh/`
 - **sudo** requires interactive password — ask the user to run sudo commands in their own terminal
 
 ---
@@ -35,7 +35,7 @@ Desktop/Home Lab/Siy/
 ### Deploy workflow
 ```bash
 # After editing any file locally:
-scp "Siy/<filename>" siy_brain@ip:~/siy/<server-path>
+scp "Siy/<filename>" @ip:~/siy/<server-path>
 
 # Then restart (user must do this in their own terminal):
 ssh siy "sudo systemctl restart siy"
