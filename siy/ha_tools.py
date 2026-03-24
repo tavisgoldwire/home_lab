@@ -43,9 +43,9 @@ WHAT'S AN ENTITY?
     - attributes: extra info like brightness, color, friendly_name
 
   Your current entities (approximate — use ha_list_entities to confirm):
-    light.bedroom_lamp   → TP-Link L535 bedside lamp (192.168.8.159)
-    light.floor_lamp     → TP-Link L535 floor lamp (192.168.8.191)
-    switch.hs300_*       → TP-Link HS300 power strip outlets (192.168.8.180)
+    light.bedroom_lamp   → TP-Link L535 bedside lamp (ip)
+    light.floor_lamp     → TP-Link L535 floor lamp (ip)
+    switch.hs300_*       → TP-Link HS300 power strip outlets (ip)
 
   The friendly names depend on what you named them in HA's UI.
   Use ha_list_entities() to see the exact entity IDs for your setup.
