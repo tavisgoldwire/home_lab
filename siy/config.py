@@ -14,29 +14,17 @@ WHAT CHANGED FROM WINDOWS:
   ┌─────────────────────────────────────────────────────────────────┐
   │  Windows (old)                  →  Linux (this file)            │
   │  ─────────────────────────────────────────────────────────────  │
-  │  C:\\SiyBrain                    →  /home/siy_brain/siy         │
-  │  r"C:\\Users\\Tavis\\..."        →  /home/siy_brain/...         │
-  │  Port 8123                      →  Port 8000                   │
+  │  C:\\SiyBrain                    →  /home//siy                 │
+  │  r"C:\\Users\\Tavis\\..."        →  /home//...                 │
+  │  Port 8123                      →  Port X                      │
   │  (HA was elsewhere)             →  (HA is on 8123 on this box) │
   └─────────────────────────────────────────────────────────────────┘
 
   Port 8000 is deliberate: Home Assistant Docker is already on 8123
-  on this same machine (192.168.8.212). Uptime Kuma is watching
-  192.168.8.212:8000 and will go green the moment this server starts.
+  on this same machine. Uptime Kuma is watching
+  
 
-NETWORK CONTEXT (for your reference):
-  ┌─────────────────────────────────────────────────────────────────┐
-  │  Device          │  IP              │  Key Ports                │
-  │  ─────────────────────────────────────────────────────────────  │
-  │  GL.iNet Router  │  192.168.8.1     │  80 (admin)              │
-  │  Managed Switch  │  192.168.8.2     │  —                       │
-  │  HS300 Strip     │  192.168.8.180   │  —                       │
-  │  Bedside Lamp    │  192.168.8.159   │  —                       │
-  │  Floor Lamp      │  192.168.8.191   │  —                       │
-  │  TrueNAS/NAS     │  192.168.8.211   │  80 (web), 30013 (JF)   │
-  │  OptiPlex #2     │  192.168.8.212   │  8123 (HA), 8000 (Siy)  │
-  │  RPi 3           │  192.168.8.???   │  3001 (Uptime Kuma)      │
-  └─────────────────────────────────────────────────────────────────┘
+
 """
 
 import os
@@ -58,7 +46,7 @@ import os
 # for GPU acceleration), just change OLLAMA_BASE to that machine's IP.
 # Everything else stays the same.
 
-OLLAMA_BASE = "http://127.0.0.1:11434"
+OLLAMA_BASE = ""
 OLLAMA_CHAT_URL = f"{OLLAMA_BASE}/api/chat"
 
 # ── Model ───────────────────────────────────────────────────────────
@@ -86,9 +74,9 @@ OLLAMA_TIMEOUT = 180  # seconds
 # PATHS — where Siy stores its data on disk
 # ═══════════════════════════════════════════════════════════════════════
 #
-# Everything lives under /home/siy_brain/siy/. The directory structure:
+# Everything lives under /home//siy/. The directory structure:
 #
-#   /home/siy_brain/siy/
+#   /home//siy/
 #   ├── config.py            ← you are here
 #   ├── app.py               ← FastAPI server
 #   ├── ollama_client.py     ← talks to Ollama
@@ -103,7 +91,7 @@ OLLAMA_TIMEOUT = 180  # seconds
 #   │   └── chroma/          ← ChromaDB vector database for episodic memory
 #   └── logs/                ← application logs
 
-SIY_DIR = "/home/siy_brain/siy"
+SIY_DIR = "/home//siy"
 
 # ── Memory storage ──────────────────────────────────────────────────
 # MEMORY_DIR holds all persistent memory data.
@@ -124,7 +112,7 @@ LOGS_DIR = os.path.join(SIY_DIR, "logs")
 # ═══════════════════════════════════════════════════════════════════════
 #
 # Port 8000: chosen because HA Docker already occupies 8123 on this box.
-# Uptime Kuma is already watching 192.168.8.212:8000 — it'll go green
+# Uptime Kuma is already watching  — it'll go green
 # the moment you start the server.
 #
 # HOST 0.0.0.0: listen on all network interfaces so HA (and anything
@@ -195,16 +183,16 @@ EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 #   - Shared folders from TrueNAS (if you mount them via NFS/SMB)
 #   - Downloads or staging directories
 #
-# On this Ubuntu box, siy_brain's home is /home/siy_brain.
-# The Siy project itself is in /home/siy_brain/siy.
+# On this Ubuntu box, 's home is /home/.
+# The Siy project itself is in /home//siy.
 
 ALLOWED_FILE_ROOTS = [
-    "/home/siy_brain/siy",           # Siy's own project files (for self-inspection)
-    "/home/siy_brain/documents",     # General documents (create this dir as needed)
-    "/home/siy_brain/downloads",     # Downloads staging area
+    "/home//siy",           # Siy's own project files (for self-inspection)
+    "/home//documents",     # General documents (create this dir as needed)
+    "/home//downloads",     # Downloads staging area
     # ── Add more as your needs grow ──
     # "/mnt/nas/media",              # Example: NFS mount from TrueNAS
-    # "/home/siy_brain/research",    # Example: research data directory
+    # "/home//research",    # Example: research data directory
 ]
 
 # ── File size safety ────────────────────────────────────────────────
