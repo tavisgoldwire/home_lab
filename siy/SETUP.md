@@ -5,8 +5,8 @@
 | Field        | Value                          |
 |--------------|--------------------------------|
 | Hostname     | `siy`                          |
-| IP           | `192.168.8.212`                |
-| User         | `siy_brain`                    |
+| IP           |                                |
+| User         |                                |
 | OS           | Ubuntu Server 24.04            |
 | CPU          | Intel i5-6500T (4C/4T, no GPU) |
 | RAM          | 8 GB DDR4                      |
@@ -37,7 +37,7 @@
 ### 1. SSH into OptiPlex #2
 
 ```bash
-ssh siy_brain@192.168.8.212
+ssh 
 ```
 
 ### 2. Verify Ollama is Running
@@ -62,11 +62,11 @@ From your local machine (where you downloaded these files):
 # Copy all project files to the server
 scp app.py config.py ollama_client.py session_manager.py memory.py \
     requirements.txt SETUP.md \
-    siy_brain@192.168.8.212:~/siy/
+    @ip:~/siy/
 
 # Copy the tools directory
 scp tools/__init__.py tools/file_tools.py \
-    siy_brain@192.168.8.212:~/siy/tools/
+    @ip:~/siy/tools/
 ```
 
 Or if you have the files on a USB drive / git repo, clone/copy them
@@ -106,7 +106,7 @@ You should see:
 
 ```
 Siy Brain (SIY-01) starting up...
-  Host: 0.0.0.0:8000
+  Host: 0.0.0.0:port
   Model: qwen3:8b
 Ollama OK. Model 'qwen3:8b' available.
 Loading embedding model: all-MiniLM-L6-v2
@@ -119,18 +119,18 @@ From another terminal (or your PC), test it:
 
 ```bash
 # Health check (should return immediately)
-curl http://192.168.8.212:8000/health
+curl http://ip:port/health
 
 # Send a test message (will take 15-40 sec on CPU)
-curl -X POST http://192.168.8.212:8000/chat \
+curl -X POST http://ip:port/chat \
   -H "Content-Type: application/json" \
   -d '{"text": "hey Siy, who am I?", "session_id": "test"}'
 
 # View core memory
-curl http://192.168.8.212:8000/memory/core | python3 -m json.tool
+curl http://ip:port/memory/core | python3 -m json.tool
 
 # View active sessions
-curl http://192.168.8.212:8000/sessions | python3 -m json.tool
+curl http://ip:port/sessions | python3 -m json.tool
 ```
 
 Once this works, Ctrl+C the server and proceed to step 6.
@@ -156,20 +156,20 @@ Description=Siy Brain - Local AI Assistant (SIY-01)
 After=network.target ollama.service
 
 [Service]
-# ── Run as the siy_brain user (not root!) ──────────────────────────
-User=siy_brain
-Group=siy_brain
+# ── Run as the  user (not root!) ──────────────────────────
+User=
+Group=
 
 # ── Working directory ──────────────────────────────────────────────
-WorkingDirectory=/home/siy_brain/siy
+WorkingDirectory=/home//siy
 
 # ── The actual command ─────────────────────────────────────────────
 # Uses the venv's Python directly so we don't need to activate it.
-# uvicorn runs the FastAPI app on 0.0.0.0:8000.
+# uvicorn runs the FastAPI app on 0.0.0.0:port.
 # --no-access-log suppresses per-request HTTP logs (we have our own).
-ExecStart=/home/siy_brain/siy/.venv/bin/uvicorn app:app \
+ExecStart=/home//siy/.venv/bin/uvicorn app:app \
     --host 0.0.0.0 \
-    --port 8000 \
+    --port port \
     --no-access-log
 
 # ── Restart policy ─────────────────────────────────────────────────
@@ -212,7 +212,7 @@ journalctl -u siy -f
 ### 7. Verify Uptime Kuma Goes Green
 
 Once the service is running, check Uptime Kuma (on the RPi 3).
-The "Siy (future)" monitor watching `http://192.168.8.212:8000`
+The "Siy (future)" monitor watching `http://ip:port`
 should flip from red to green within 60 seconds.
 
 ### 8. Wire Up Home Assistant
@@ -223,23 +223,12 @@ In your HA configuration, add a REST command to talk to Siy:
 # In configuration.yaml (or a split file if you use packages)
 rest_command:
   siy_chat:
-    url: "http://127.0.0.1:8000/chat"
+    url: "http://127.0.0.1:port/chat"
     method: POST
     content_type: "application/json"
     payload: '{"text": "{{ text }}", "session_id": "ha_main"}'
     timeout: 180
 ```
-
-**Why 127.0.0.1?** HA Docker and Siy are on the same machine.
-Using localhost avoids going through the network stack.
-
-**Why timeout 180?** Matches OLLAMA_TIMEOUT in config.py. On CPU,
-complex prompts can take up to 40 seconds. The timeout gives headroom
-for multi-tool-round requests.
-
-**Why session_id "ha_main"?** All HA messages share one session.
-This means "turn on the light" → "now dim it" works because Siy
-remembers what "it" refers to.
 
 After adding the REST command, restart HA:
 
@@ -292,34 +281,34 @@ journalctl -u siy --since "1 hour ago"  # recent logs
 
 ```bash
 # Health check
-curl http://192.168.8.212:8000/health
+curl http://ip:port/health
 
 # Chat
-curl -X POST http://192.168.8.212:8000/chat \
+curl -X POST http://ip:port/chat \
   -H "Content-Type: application/json" \
   -d '{"text": "hello", "session_id": "test"}'
 
 # View core memory
-curl http://192.168.8.212:8000/memory/core
+curl http://ip:port/memory/core
 
 # Update core memory
-curl -X PUT http://192.168.8.212:8000/memory/core \
+curl -X PUT http://ip:port/memory/core \
   -H "Content-Type: application/json" \
   -d '{"preferences": {"style": "more casual"}}'
 
 # List sessions
-curl http://192.168.8.212:8000/sessions
+curl http://ip:port/sessions
 ```
 
 ### File Locations
 
 | What                  | Where                                    |
 |-----------------------|------------------------------------------|
-| Project code          | `/home/siy_brain/siy/`                   |
-| Virtual environment   | `/home/siy_brain/siy/.venv/`             |
-| Core memory           | `/home/siy_brain/siy/memory/core_memory.json` |
-| Episodic memory (DB)  | `/home/siy_brain/siy/memory/chroma/`     |
-| Logs                  | `/home/siy_brain/siy/logs/`              |
+| Project code          | `/home//siy/`                   |
+| Virtual environment   | `/home//siy/.venv/`             |
+| Core memory           | `/home//siy/memory/core_memory.json` |
+| Episodic memory (DB)  | `/home//siy/memory/chroma/`     |
+| Logs                  | `/home//siy/logs/`              |
 | systemd service       | `/etc/systemd/system/siy.service`        |
 | Ollama models         | `/usr/share/ollama/.ollama/models/`      |
 
